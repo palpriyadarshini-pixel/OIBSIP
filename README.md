@@ -105,7 +105,7 @@ Pizza_Delivery
 ### Clone Repository
 
 ```bash
-git clone <repository-url>
+git clone <https://github.com/palpriyadarshini-pixel/OIBSIP.git>
 cd Pizza_Delivery
 ```
 
