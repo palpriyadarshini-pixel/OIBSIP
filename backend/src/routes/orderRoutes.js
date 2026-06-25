@@ -4,9 +4,11 @@ import {
   getMyOrders,
   getAllOrders,
   updateOrderStatus,
+  getDashboardStats,
 } from "../controllers/orderController.js";
 import { protect } from "../middleware/authMiddleware.js";
 import adminMiddleware from "../middleware/adminMiddleware.js";
+
 
 const router = express.Router();
 
@@ -18,7 +20,12 @@ router.get(
   adminMiddleware,
   getAllOrders
 );
-
+router.get(
+  "/dashboard-stats",
+  protect,
+  adminMiddleware,
+  getDashboardStats
+);
 router.put(
   "/:id",
   protect,

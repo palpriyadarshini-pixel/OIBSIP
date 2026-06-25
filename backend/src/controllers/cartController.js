@@ -2,7 +2,19 @@ import Cart from "../models/Cart.js";
 
 export const addToCart = async (req, res) => {
   try {
-    const { pizzaId, size, quantity } = req.body;
+    const {
+            pizzaId,
+            size,
+            quantity,
+            selectedCrust,
+            selectedAddons,
+            customPrice,
+
+            dealId,
+            dealType,
+            isFreeItem,
+            discountApplied,
+          } = req.body;
     console.log(req.body);
 
     const cartItem = await Cart.create({
@@ -10,6 +22,14 @@ export const addToCart = async (req, res) => {
       pizza: pizzaId,
       size,
       quantity,
+      selectedCrust,
+      selectedAddons,
+      customPrice,
+
+      dealId,
+      dealType,
+      isFreeItem,
+      discountApplied,
     });
 
     res.status(201).json({

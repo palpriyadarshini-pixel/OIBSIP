@@ -23,10 +23,47 @@ const cartSchema = new mongoose.Schema(
       type: Number,
       default: 1,
     },
-  },
-  {
-    timestamps: true,
-  }
+
+    selectedCrust: {
+      type: String,
+      default: "",
+    },
+
+    selectedAddons: [
+      {
+        name: String,
+        price: Number,
+      },
+    ],
+
+    customPrice: {
+      type: Number,
+      default: 0,
+    },
+
+    dealId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Deal",
+    },
+
+    dealType: {
+      type: String,
+      default: "",
+    },
+
+    isFreeItem: {
+      type: Boolean,
+      default: false,
+    },
+
+    discountApplied: {
+      type: Number,
+      default: 0,
+    },
+      },
+      {
+        timestamps: true,
+      }
 );
 
 const Cart = mongoose.model("Cart", cartSchema);

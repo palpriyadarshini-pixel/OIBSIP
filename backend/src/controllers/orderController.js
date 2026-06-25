@@ -1,5 +1,7 @@
 import Order from "../models/Order.js";
 import Cart from "../models/Cart.js";
+import User from "../models/User.js";
+import Pizza from "../models/Pizza.js";
 
 export const placeOrder = async (req, res) => {
   try {
@@ -87,6 +89,44 @@ export const updateOrderStatus = async (req, res) => {
     );
 
     res.status(200).json(order);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+export const getDashboardStats = async (req, res) => {
+  try {
+    const totalOrders =
+      await Order.countDocuments();
+
+    const totalUsers =
+      await User.countDocuments();
+
+    const totalPizzas =
+      await Pizza.countDocuments();
+
+    const revenueResult =
+      await Order.aggregate([
+        {
+          $group: {
+            _id: null,
+            totalRevenue: {
+              $sum: "$totalAmount",
+            },
+          },
+        },
+      ]);
+
+    const totalRevenue =
+      revenueResult[0]?.totalRevenue || 0;
+
+    res.status(200).json({
+      totalOrders,
+      totalUsers,
+      totalPizzas,
+      totalRevenue,
+    });
   } catch (error) {
     res.status(500).json({
       message: error.message,

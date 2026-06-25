@@ -17,9 +17,11 @@ const pizzaSchema = new mongoose.Schema(
       required: true,
     },
 
+
     category: {
       type: String,
-      default: "Pizza",
+      enum: ["Veg", "Non-Veg"],
+      default: "Veg",
     },
 
     sizes: [
